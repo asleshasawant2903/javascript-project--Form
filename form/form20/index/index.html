@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>.container{
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        
+    }
+    body{
+          background: #141a34;;
+        width:100%;
+        height: 100vh;
+    
+    }
+    button {
+  position: absolute;
+  top: 6%;  /* Distance from the top */
+  left: 20%;   /* Centering horizontally */
+  transform: translateX(-50%);
+ 
+}
+
+    .btn{
+        padding: 15px 30px 15px 30px;
+        border: none;
+        outline: none;
+        font-size: 1rem;
+        display: block;
+  /* display: block; */
+    margin: 20px auto;
+        margin-left: 65%;
+        /* top: 136%; */
+
+        font-weight: bold;
+        background-color:beige ;
+        border-radius: 2px;
+        
+    }
+    .input_grp{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+        position: relative;
+      
+    }
+    form{
+        border: 1px solid red;
+        width: 450px;
+        border: none;
+        padding-left: 10px;
+        outline: none;
+        background-color: white;
+    }
+    .input_grp label{
+        flex-basis: 28%;
+    }
+    .input_grp input, .input_grp textarea{
+        flex-basis: 68%;
+        background-color: transparent;
+        border: 0;
+        outline: 0;
+        padding: 10px 0;
+        border-bottom: 1px solid #999;
+        color: #333;
+        font-size: 16px;
+    }
+    ::placeholder{
+        font-size: 14px;
+    
+    }
+    
+    
+        form button {
+    background: #141a34;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid rgba(255,255,255,0.7);
+    padding: 10px 40px;
+    outline: 0;
+    cursor: pointer;
+    display: block;
+    margin: 30px auto 10px; /* Center the button and give some space */
+    position: relative;
+}
+
+    
+    .pop_up_form img{
+        width: 80px;
+        margin-top: -50px;
+        margin-left: 150px;
+        border-radius: 50%;
+        box-shadow: 0.2px 5px rgba(0, 0, 0, 0.2);
+    }
+    .input_grp span{
+        position: absolute;
+        bottom: 12px;
+        font-size: 14px;
+        color: red;
+        right: 17px;
+    }
+
+ 
+    #submitt{
+        color: red;
+    }
+    
+
+    .pop_up_form {
+    width: 430px;
+    height: 400px;
+    background-color: white;
+    position: absolute;
+    top: 50%;
+    right: -500px; /* Initially hidden outside the right */
+    transform: translateY(-50%);
+    text-align: center;
+    padding: 0 30px 30px;
+    color: #333;
+    transition: right 0.4s ease-in-out;
+    visibility: hidden;
+}
+
+.openpop_up {
+    right: 20px; /* Slide in from the right */
+    visibility: visible;
+}
+
+    </style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <button class="btn" id="register" onclick="openpop_up()">Register Now!</button>
+
+        <div class="pop_up_form" id="popup">
+            <form>
+                <img src="Paper-Plane-1024.webp" alt="">
+                <div class="input_grp">
+                    <label>Full Name:</label>
+                    <input type="text" placeholder="Enter your Name..." id="contact-name" onkeyup="validName()">
+                    <span id="name_error"></span>
+                </div>
+
+                <div class="input_grp">
+                    <label>Email ID:</label>
+                    <input type="email" placeholder="Enter your Email ID..."  id="contact-email" onkeyup="validEmail()">
+                    <span id="email_error"></span>
+                </div>
+
+                <div class="input_grp">
+                    <label>Number:</label>
+                    <input type="text" placeholder="1234..." id="contact-phone" onkeyup="validPhone()">
+                    <span id="number_error"></span> <!-- Fixed ID (lowercase) -->
+                </div>
+                <div class="input_grp">
+                    <label>Your Message:</label>
+                    <textarea rows="5" placeholder="Message" id="contact-message" onkeyup="validMessage()"></textarea>
+                    <span id="message_error"></span> <!-- Fixed ID -->
+                </div>
+                
+
+                <button onclick="return validform()" id="close_pop()">Submit</button>
+                <span id="submitterror"></span>
+                
+
+            </form>
+        </div>
+    </div>
+    <script>
+        // Define error message elements
+var nameError = document.getElementById('name_error');
+var emailError = document.getElementById('email_error');
+var numberError = document.getElementById('number_error');
+var messageError = document.getElementById('mesage_error');
+var formerror =document.getElementById('submitterror');
+
+function validName() {
+    var name = document.getElementById('contact-name').value;
+
+    if (name.length === 0) {
+        nameError.innerHTML = "Name is required";
+        return false;
+    }
+
+    if (!name.match(/^[A-Za-z]+\s[A-Za-z]+$/)) {
+        nameError.innerHTML = "Write full name (First Last)";
+        return false;
+    }
+
+    nameError.innerHTML = "✅ Valid";
+    nameError.style.color = "green"; // Optional: make success messages green
+    return true;
+}
+
+
+
+function validEmail() {
+    var email = document.getElementById('contact-email').value;
+    var emailError = document.getElementById('email_error'); // Define error span
+
+    var emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+    if (email.length === 0) {
+        email_error.innerHTML = "📌 Email is required";
+        email_error.style.color = "red"; // Error message in red
+        return false;
+    }
+
+    if (!email.match(emailPattern)) {
+        email_error.innerHTML = "⚠️ Invalid email format";
+        email_error.style.color = "red";
+        return false;
+    }
+
+    email_error.innerHTML = "✅ Valid";
+    emailError.style.color = "green"; // Success message in green
+    return true;
+}
+
+function validMessage() {
+    var message = document.getElementById('contact-message').value; 
+    var messageError = document.getElementById('message_error'); // Define error span
+
+    var required = 30; // Minimum required characters
+    var left = required - message.length; // Remaining characters
+
+    if (left > 0) {
+        messageError.innerHTML = `⚠️ ${left} more characters required`;
+        messageError.style.color = "red"; // Show error in red
+        return false;
+    }
+
+    messageError.innerHTML = "✅ Valid";
+    messageError.style.color = "green"; // Show success in green
+    return true;
+}
+
+
+
+
+
+function validPhone() {
+    var phone = document.getElementById('contact-phone').value; 
+    var numberError = document.getElementById('number_error'); // Ensure correct ID
+
+    var phonePattern = /^[0-9]{10}$/; // Exactly 10 digits
+
+    if (phone.length === 0) {
+        numberError.innerHTML = "📌 Phone number is required";
+        numberError.style.color = "red";
+        return false;
+    }
+
+    if (!phone.match(phonePattern)) {
+        numberError.innerHTML = "⚠️ Phone number must be exactly 10 digits";
+        numberError.style.color = "red";
+        return false;
+    }
+
+    numberError.innerHTML = "✅ Valid";
+    numberError.style.color = "green";
+    return true;
+}
+function validMessage() {
+    var message = document.getElementById('contact-message').value; 
+    var messageError = document.getElementById('message_error'); // Corrected ID
+
+    var required = 30; // Minimum required characters
+    var left = required - message.length; // Remaining characters
+
+    if (left > 0) {
+        messageError.innerHTML = `⚠️ ${left} more characters required`;
+        messageError.style.color = "red"; // Show error in red
+        return false;
+    }
+
+    messageError.innerHTML = "✅ Valid";
+    messageError.style.color = "green"; // Show success in green
+    return true;
+}
+
+
+
+function validform() {
+    var submitError = document.getElementById('submitterror'); // Corrected ID reference
+
+    if (!validName() || !validPhone() || !validMessage()) {
+        submitError.style.display = "block";
+        submitError.innerHTML = "⚠️ Please fix the errors before submitting.";
+        submitError.style.color = "red";
+
+        setTimeout(function () {
+            submitError.style.display = 'none';
+        }, 3000);
+
+        return false;
+    }
+
+    return true; // Form is valid
+}
+
+
+
+let popup = document.getElementById("popup");
+function openpop_up(){
+    popup.classList.add("openpop_up");
+}
+function  close_pop(){
+    popup.classList.remove("openpop_up");
+}
+    
+
+    </script>
+</body>
+</html>
+</body>
+</html>

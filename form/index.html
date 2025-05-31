@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   <link rel="stylesheet" href="style.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container">
+        <button class="btn" onclick="openpop_up()">Register Now!</button>
+
+        <div class="pop_up_form" id="popup">
+            <form>
+                <img src="Paper-Plane-1024.webp" alt="">
+                <div class="input_grp">
+                    <label>Full Name:</label>
+                    <input type="text" placeholder="Enter your Name..." id="contact-name" onkeyup="validName()">
+                    <span id="name_error"></span>
+                </div>
+
+                <div class="input_grp">
+                    <label>Email ID:</label>
+                    <input type="email" placeholder="Enter your Email ID..."  id="contact-email" onkeyup="validEmail()">
+                    <span id="email_error"></span>
+                </div>
+
+                <div class="input_grp">
+                    <label>Number:</label>
+                    <input type="text" placeholder="1234..." id="contact-phone" onkeyup="validPhone()">
+                    <span id="number_error"></span> <!-- Fixed ID (lowercase) -->
+                </div>
+                <div class="input_grp">
+                    <label>Your Message:</label>
+                    <textarea rows="5" placeholder="Message" id="contact-message" onkeyup="validMessage()"></textarea>
+                    <span id="message_error"></span> <!-- Fixed ID -->
+                </div>
+                
+
+                <button onclick="return validform()" id="close_pop()">Submit</button>
+                <span id="submitterror"></span>
+                
+
+            </form>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
